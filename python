@@ -1,0 +1,27 @@
+import telebot
+from telebot.types import WebAppInfo
+
+BOT_TOKEN = "8390334481:AAGM-WTxKe88otShhQYK-YaSlWXKqcLg0fQ"
+bot = telebot.TeleBot(@KvaClickerGameBot)
+
+# Команда для запуска Mini App
+@bot.message_handler(commands=['start'])
+def start(message):
+    markup = telebot.types.InlineKeyboardMarkup()
+    
+    # Кнопка для открытия Mini App
+    web_app = WebAppInfo(url="https://kwazarrr-glitch.github.io/mini-app/")
+    markup.add(telebot.types.InlineKeyboardButton(
+        "🎮 Открыть Кликер", 
+        web_app=web_app
+    ))
+    
+    bot.send_message(
+        message.chat.id,
+        "🎮 *Добро пожаловать в Ква Кликер!*\n\n"
+        "Нажмите кнопку ниже чтобы открыть игру:",
+        parse_mode='Markdown',
+        reply_markup=markup
+    )
+
+bot.polling()
